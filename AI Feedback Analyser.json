@@ -1,0 +1,363 @@
+{
+  "name": "AI Feedback Analyser",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1d925f62-8737-4539-b9fb-879ba8005600",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY",
+          "mode": "list",
+          "cachedResultName": "Copy of Bakery Feedback Responses (Project C)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 857373443,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY/edit#gid=857373443"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "=Processed?",
+              "lookupValue": "NO"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "27cc11b3-d268-4a02-b591-a3663e54b07b",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J2nNKXaFXV69BGoz",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY",
+          "mode": "list",
+          "cachedResultName": "Copy of Bakery Feedback Responses (Project C)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 857373443,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FK7E7fX1a-jAScPARP2hCatJCEJ8biCC1aLc6eBbhHY/edit#gid=857373443"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Name ",
+              "displayName": "Customer Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email ",
+              "displayName": "Email ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "How would you rate your experience? ",
+              "displayName": "How would you rate your experience? ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "What could we improve? ",
+              "displayName": "What could we improve? ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Processed?",
+              "displayName": "Processed?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        656,
+        -96
+      ],
+      "id": "bccbcb8b-0d52-44e8-a836-b785d81b4249",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "J2nNKXaFXV69BGoz",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "What could we improve? "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        496,
+        128
+      ],
+      "id": "4ce0a955-c689-4436-971b-cc942dacaa97",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e767024-d384-4a7b-80c7-3a19d1b45ac8",
+              "name": "={{ $json['Processed?'] }}",
+              "value": "YES",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        -96
+      ],
+      "id": "0ec72db7-1eae-4a40-9628-f1f370416068",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a customer experience analyst for a bakery. Analyze this week's customer feedback and create a concise HTML report.\n\nCUSTOMER FEEDBACK TO ANALYZE: {{ $json['What could we improve? '] }}\n\nCreate a concise HTML email report with these sections:\n\n<h2>📊 Daily Feedback Summary</h2>\n<p>Brief overview of feedback volume and overall sentiment.</p>\n\n<h2>⭐ Average Customer Rating</h2>\n<p>Summarize the average rating (out of 5), noting any daily variations or trends.</p>\n\n<h2>😊 Positive vs 😞 Negative Ratio</h2>\n<p>Provide a simple breakdown showing the proportion of positive to negative feedback (e.g., 70% positive, 30% negative), with a short interpretation of what it indicates.</p>\n\n<h2>🔍 Top 3 Customer Issues</h2>\n<ul>\n<li><strong>Issue 1:</strong> Brief explanation with specific examples</li>\n<li><strong>Issue 2:</strong> Brief explanation with specific examples</li>\n<li><strong>Issue 3:</strong> Brief explanation with specific examples</li>\n</ul>\n\n<h2>🚀 Recommended Actions</h2>\n<h3>Immediate (Today)</h3>\n<ul>\n<li>Action 1</li>\n<li>Action 2</li>\n</ul>\n<h3>This Week</h3>\n<ul>\n<li>Action 1</li>\n<li>Action 2</li>\n</ul>\n\n<p><em>Report generated automatically from {{ $now.format(\"dd-MMM-yyyy\") }} </em></p>\n\nIMPORTANT: \n- Keep each section brief and actionable\n- Focus on patterns across multiple customers\n- Do not include ```html or </html> tags\n- Use simple, clean HTML that works in email\n- Total report should be under 500 words\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        704,
+        128
+      ],
+      "id": "4865fd39-3719-41a6-aaaa-0f08711bee3d",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        640,
+        336
+      ],
+      "id": "5689d5b5-3367-4ff9-b397-4d3a21272c62",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "UxtmYv0SMQKJ7gXA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "fadhelronaldo62@gmail.com",
+        "subject": "=📊 Daily Customer Feedback Report - {{ $now.format(\"dd-MMM-yyyy\") }}",
+        "message": "={{ $json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1056,
+        128
+      ],
+      "id": "3ba8abbf-f9c5-4419-8034-85450e37fe25",
+      "name": "Send a message",
+      "webhookId": "8eb36be1-0ca8-4b7e-8f15-69882fa32630",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iwvXKw3svT1zeTek",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "99d871be-c458-4f06-8b29-e0668c79a868",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cecd6b859d24bedbd7dcbd7045c281adcab51e44948ea4d10f90c3b162229b47"
+  },
+  "id": "zk5FcSVUIgaez2QL",
+  "tags": []
+}
